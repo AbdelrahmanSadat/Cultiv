@@ -1,4 +1,5 @@
 import {Request, Response} from "express";
+import {db} from "../../lib/db";
 
 export const createUser = (req: Request, res: Response) => {
   res.status(201).send({ data: req.body });
