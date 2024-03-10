@@ -1,11 +1,14 @@
 import express from "express";
 import userController from "../controllers/userController";
+import { validate } from "../../middleware/validate";
+import { z } from "zod";
+import { createUserSchema } from "../../lib/validations/user";
 
 export const userRouter = express.Router();
 
-userRouter.get("/users", userController.getUser);
+userRouter.get("/users",  userController.getUser);
 
-userRouter.post("/users", userController.createUser);
+userRouter.post("/users", validate(createUserSchema, "body"), userController.createUser);
 
 userRouter.get("/users/:id", userController.getUser);
 
