@@ -15,7 +15,7 @@ export const validate = (
         message: result.error.issues.map((issue) => issue.message).join(", "),
       });
     } else {
-      //   Object.assign(location === "body" ? req.body : req.query, result.data);
+      Object.assign(req[location], result.data);
       next();
     }
   };
