@@ -17,7 +17,6 @@ const ContactCard = async () => {
       cache: "no-cache",
     });
     const data = await res.json();
-    console.log(data);
     contacts = data.contacts;
     return data;
   };

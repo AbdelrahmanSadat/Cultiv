@@ -10,14 +10,12 @@ export const createContact = async (data: any) => {
     },
     body: JSON.stringify(data),
   });
-  console.log("res", res);
   if (!res.ok) {
     const error = await res.json();
     // todo? propagate error to UI
     throw new Error(`${res.status} ${res.statusText}.`);
   }
   const contact = await res.json();
-  console.log("contact", contact);
   return contact;
 };
 

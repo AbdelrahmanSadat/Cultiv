@@ -6,7 +6,6 @@ export default async function Contact({ params }: { params: { id: string } }) {
     const getContact = async()=>{
         const res = await fetch(`${process.env.API_URL}/contacts/${params.id}`, {cache: "no-cache"});
         const data = await res.json();
-        console.log("let data por la edit", data);
         return data.contact
     }
 
