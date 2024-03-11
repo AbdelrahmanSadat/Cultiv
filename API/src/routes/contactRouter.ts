@@ -9,28 +9,28 @@ import {
 
 export const contactRouter = express.Router();
 
-contactRouter.get("contacts", contactController.getContacts);
+contactRouter.get("/contacts", contactController.getContacts);
 
 contactRouter.post(
-  "contacts",
+  "/contacts",
   validate(createContactSchema, "body"),
   contactController.createContact
 );
 
 contactRouter.get(
-  "contacts/:id",
+  "/contacts/:id",
   validate(idObjectSchema, "params"),
   contactController.getContact
 );
 
 contactRouter.delete(
-  "contacts/:id",
+  "/contacts/:id",
   validate(idObjectSchema, "params"),
   contactController.deleteContact
 );
 
 contactRouter.put(
-  "contacts/:id",
+  "/contacts/:id",
   validate(idObjectSchema, "params"),
   validate(updateContactSchema, "body"),
   contactController.updateContact
