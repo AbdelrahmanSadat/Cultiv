@@ -12,9 +12,9 @@ export const getContacts = async (req: Request, res: Response) => {
   res.status(200).send({ contacts });
 };
 
-export const getContact = (req: Request, res: Response) => {
+export const getContact = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const contact = db.contact.findFirst({ where: { id } });
+  const contact = await db.contact.findFirst({ where: { id } });
   res.status(200).send({ contact });
 };
 
