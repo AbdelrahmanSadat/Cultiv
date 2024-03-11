@@ -1,13 +1,18 @@
 import { Request, Response } from "express";
 import { db } from "../../lib/db";
 import { Contact } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 export const createContact = async (req: CreateContactRequest, res: Response) => {
   try{
     const contact = await db.contact.create({ data: {...req.body, createdBy: "1"} })
     res.status(201).send({ contact });
   }catch(e){
-    // todo?: if invalid or non-unique (check prisma errors), return 400 or smth
+    if (e instanceof PrismaClientKnownRequestError) {
+      // todo?: send proper message for bad (non-unique) request data
+      return res.status(400).send({ error: e.message });
+    }
+    console.log(e);
     res.status(500).send({ error: e });
   }
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import { createContact } from "@/actions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -25,9 +27,10 @@ const formSchema = z.object({
 });
 
 export default function ContactForm(props: {
-  contact: { name: string; email: string; phone: string };
+  contact: { name?: string; email?: string; phone?: string };
+  type: "create" | "update";
 }) {
-
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,8 +40,24 @@ export default function ContactForm(props: {
     },
   });
 
-  const onSubmit = ( data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    if (props.type === "create") {
+      const contact = await createContact(data).catch((err) => {
+        console.log(err);
+        toast({
+          title: "Error",
+          variant: "destructive",
+          description: `${err.message ?? err}`,
+        });
+      });
+
+      if (contact) {
+        toast({
+          title: "Success",
+          description: "Contact created",
+        });
+      }
+    }
   };
 
   return (
@@ -56,6 +75,21 @@ export default function ContactForm(props: {
               <FormDescription>
                 This is your public display name.
               </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone</FormLabel>
+              <FormControl>
+                <Input placeholder="0123456789" {...field} />
+              </FormControl>
+              <FormDescription>This is your phone number.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

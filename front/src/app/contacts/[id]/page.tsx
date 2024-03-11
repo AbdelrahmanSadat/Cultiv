@@ -1,4 +1,4 @@
-import ContactForm from "./form";
+import ContactForm from "../components/form";
 
 
 export default async function Contact({ params }: { params: { id: string } }) {
@@ -11,11 +11,12 @@ export default async function Contact({ params }: { params: { id: string } }) {
     }
 
     const contact = await getContact()
+    const {name, email, phone} = contact
 
     return (
     <div className="w-full">
       <div>
-        <ContactForm {...contact} />
+        <ContactForm contact={{name, email, phone}} type="update"/>
       </div>
     </div>
   )
