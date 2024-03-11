@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
 
 type Contact = {
   id: string;
@@ -12,7 +13,9 @@ type Contact = {
 const ContactCard = async () => {
   let contacts: Contact[] = [];
   const getContacts = async () => {
-    const res = await fetch(`${process.env.API_URL}/contacts`);
+    const res = await fetch(`${process.env.API_URL}/contacts`, {
+      cache: "no-cache",
+    });
     const data = await res.json();
     console.log(data);
     contacts = data.contacts;
@@ -23,26 +26,28 @@ const ContactCard = async () => {
   return (
     <div className="flex flex-wrap p-10 gap-x-24 gap-y-16 padding-10 w-full justify-center">
       {contacts.map((contact) => (
-        <Card key={contact.id}>
-          <CardHeader className="p-0">
-            <Image
-              src={contact.image}
-              alt={""}
-              width={240}
-              height={360}
-              className="mx-auto"
-            />
-          </CardHeader>
-          <CardContent className="pt-6">
-            <CardTitle className="font-bold text-center">
-              {contact.name}
-            </CardTitle>
-            <p className="text-center text-muted-foreground pt-6">
-              {contact.email} <br />
-              {contact.phone}
-            </p>
-          </CardContent>
-        </Card>
+        <Link key={contact.id} href={`/contacts/${contact.id}`}>
+          <Card>
+            <CardHeader className="p-0">
+              <Image
+                src={contact.image ?? "/profile.png"}
+                alt={""}
+                width={240}
+                height={360}
+                className="mx-auto"
+              />
+            </CardHeader>
+            <CardContent className="pt-6">
+              <CardTitle className="font-bold text-center">
+                {contact.name}
+              </CardTitle>
+              <p className="text-center text-muted-foreground pt-6">
+                {contact.email} <br />
+                {contact.phone}
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
       ))}
     </div>
   );
