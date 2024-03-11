@@ -2,9 +2,14 @@ import { Request, Response } from "express";
 import { db } from "../../lib/db";
 import { Contact } from "@prisma/client";
 
-export const createContact = (req: CreateContactRequest, res: Response) => {
-  const contact = db.contact.create({ data: req.body });
-  res.status(201).send({ contact });
+export const createContact = async (req: CreateContactRequest, res: Response) => {
+  try{
+    const contact = await db.contact.create({ data: {...req.body, createdBy: "1"} })
+    res.status(201).send({ contact });
+  }catch(e){
+    // todo?: if invalid or non-unique (check prisma errors), return 400 or smth
+    res.status(500).send({ error: e });
+  }
 };
 
 export const getContacts = async (req: Request, res: Response) => {
