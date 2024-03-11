@@ -3,10 +3,10 @@ import { z } from "zod";
 
 export const validate = (
   schema: z.ZodSchema<any>,
-  location: "body" | "query"
+  location: "body" | "query" | "params"
 ) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const data = location === "body" ? req.body : req.query;
+    const data = req[location];
     const result = schema.safeParse(data);
 
     if (!result.success) {

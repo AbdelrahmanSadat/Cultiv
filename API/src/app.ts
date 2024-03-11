@@ -1,20 +1,22 @@
 import express from "express";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
 
 import { userRouter } from "./routes/userRouter";
-import bodyParser from "body-parser";
+import { contactRouter } from "./routes/contactRouter";
 
 dotenv.config();
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 app.use(userRouter);
+app.use(contactRouter);
 
-export default app
+export default app;
