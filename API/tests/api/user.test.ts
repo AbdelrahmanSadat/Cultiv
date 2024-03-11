@@ -6,7 +6,7 @@ let server: any;
 beforeAll(async () => {
   // Start the Express server before running the tests
   await new Promise<void>((resolve) => {
-    server = app.listen(3000, () => {
+    server = app.listen(process.env.TESTING_PORT, () => {
       console.log('Server started on port 3000');
       resolve();
     });
