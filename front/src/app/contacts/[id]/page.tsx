@@ -15,7 +15,7 @@ export default async function Contact({ params }: { params: { id: string } }) {
     return (
     <div className="w-full">
       <div>
-        <ContactForm contact={{name, email, phone, image}} type="update"/>
+        <ContactForm contact={{name, email, phone, image}} type="update" id={params.id}/>
       </div>
     </div>
   )

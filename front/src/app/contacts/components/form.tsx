@@ -22,9 +22,9 @@ const formSchema = z.object({
   name: z.string().min(1, {
     message: "Name required",
   }),
-  email: z.string().email({ message: "Invalid email address" }).optional(),
+  email: z.string().email({ message: "Invalid email address" }).optional().nullable(),
   phone: z.union([z.string(), z.number()]).pipe(z.coerce.string()),
-  image: z.string().optional(),
+  image: z.string().optional().nullable(),
 });
 
 export default function ContactForm(props: {
