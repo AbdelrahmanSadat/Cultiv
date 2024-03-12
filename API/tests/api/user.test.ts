@@ -38,17 +38,5 @@ describe('Create User', () => {
     expect(res.status).toEqual(201);
   });
 
-  // it('should return status 400 if missing required fields', async () => {
-  //   const user = {
-  //     email: 'test@test.com',
-  //     name: 'Test',
-  //   };
-
-  //   const res = await supertest(app)
-  //     .post('/api/users')
-  //     .send(user);
-  //   expect(res.status).toEqual(400);
-  // });
-
 });
 

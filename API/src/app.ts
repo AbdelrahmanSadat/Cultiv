@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 
 import { userRouter } from "./routes/userRouter";
 import { contactRouter } from "./routes/contactRouter";
+import { authRouter } from "./routes/authRouter";
 
 dotenv.config();
 
@@ -18,5 +19,6 @@ app.get("/", (req, res) => {
 
 app.use(userRouter);
 app.use(contactRouter);
+app.use(authRouter);
 
 export default app;
