@@ -1,6 +1,7 @@
 ## Installation
 - Simply `cd` into the api dir in one terminal, and the front dir in another.
-- Run `npm run dev` in both.
+- Run `npm i` in both dirs.
+- Run `npm run dev` in both dirs.
 
 App should be running [here](http://localhost:3000)
 
