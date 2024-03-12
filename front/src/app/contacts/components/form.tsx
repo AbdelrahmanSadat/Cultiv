@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -78,9 +79,20 @@ export default function ContactForm(props: {
   };
 
   return (
-    <div className="p-10">
+    <div className="py-16 px-24 flex flex-wrap justify-between gap-56">
+      <div className="flex-grow">
+        <Image
+          src={props.contact.image ?? "/profile.png"}
+          alt=""
+          width={240}
+          height={0}
+          className="mx-auto object-cover w-full"
+        >
+
+        </Image>
+      </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex-grow">
           <FormField
             control={form.control}
             name="name"
@@ -137,7 +149,7 @@ export default function ContactForm(props: {
               <FormItem>
                 <FormLabel>Image Link</FormLabel>
                 <FormControl>
-                  <Input placeholder="0123456789" {...field} />
+                  <Input placeholder="https://example.com/image" {...field} />
                 </FormControl>
                 <FormDescription>
                   Link to your profile image (until image upload is implemented)

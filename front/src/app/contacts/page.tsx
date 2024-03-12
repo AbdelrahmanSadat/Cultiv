@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { FaPlus } from "react-icons/fa";
 
 type Contact = {
   id: string;
@@ -23,17 +24,22 @@ const ContactCard = async () => {
   await getContacts();
 
   return (
-    <div className="flex flex-wrap p-10 gap-x-24 gap-y-16 padding-10 w-full justify-center">
+    <div className="flex flex-wrap p-10 px-16 gap-x-24 gap-y-16 w-full justify-between">
+      <div className="w-full flex justify-between">
+        <div></div>
+        <div><Link href="/contacts/create"><FaPlus/></Link></div>
+      </div>
       {contacts.map((contact) => (
         <Link key={contact.id} href={`/contacts/${contact.id}`}>
           <Card>
-            <CardHeader className="p-0">
+            <CardHeader className="p-0 h-[240px]">
               <Image
                 src={contact.image ?? "/profile.png"}
                 alt={""}
                 width={240}
-                height={360}
-                className="mx-auto"
+                height={0}
+                sizes="100vw"
+                className="mx-auto object-cover h-full"
               />
             </CardHeader>
             <CardContent className="pt-6">
